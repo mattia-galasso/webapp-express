@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-
 const port = process.env.APP_PORT;
 const appURL = process.env.APP_URL + `:${port}`;
 
 // IMPORTS
+const moviesRouter = require("./routers/movies");
 
 // MIDDLEWARES
 app.use(express.static("public"));
@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 // ROUTERS
+app.use("/movies", moviesRouter);
 
 // ERROR HANDLERS
 
