@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
     }
 
     const responseData = {
-      result: results,
+      result: results.map(responseImagePath),
       message: "Movies List",
       status: true,
     };
@@ -59,7 +59,7 @@ router.get("/:id", (req, res) => {
       movie[0].reviews = reviewsResults;
 
       const responseData = {
-        result: results,
+        result: responseImagePath(results[0]),
         message: `Movie Details ${requestID}`,
         status: true,
       };
@@ -87,5 +87,12 @@ router.patch("/", (req, res) => {
 router.delete("/", (req, res) => {
   res.send("WIP");
 });
+
+const responseImagePath = (movie) => {
+  const image = movie.image;
+  const imagePath =
+    process.env.APP_URL + ":" + process.env.APP_PORT + "/movies_cover/" + image;
+  return { ...movie, image: imagePath };
+};
 
 module.exports = router;
