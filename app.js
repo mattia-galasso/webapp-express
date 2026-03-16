@@ -1,12 +1,19 @@
 const express = require("express");
 const app = express();
 
-const port = 3000;
-const appURL = `http://localhost:${port}`;
+const port = process.env.APP_PORT;
+const appURL = process.env.APP_URL + `:${port}`;
 
 // IMPORTS
 
 // MIDDLEWARES
+app.use(express.static("public"));
+app.use(express.json());
+
+//! TEST ROUTE
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 // ROUTERS
 
@@ -14,5 +21,5 @@ const appURL = `http://localhost:${port}`;
 
 // LISTENER
 app.listen(port, () => {
-  console.log(`Server listening on ${port}`);
+  console.log(`Server listening on ${appURL}`);
 });
