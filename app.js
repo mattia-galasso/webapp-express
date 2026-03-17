@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const notFound = require("./middlewares/notFound");
 const port = process.env.APP_PORT;
@@ -11,6 +12,7 @@ const moviesRouter = require("./routers/movies");
 // MIDDLEWARES
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 //! TEST ROUTE
 app.get("/", (req, res) => {
