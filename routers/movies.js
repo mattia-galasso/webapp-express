@@ -13,12 +13,12 @@ router.get("/:id", moviesController.show);
 router.post("/", moviesController.store);
 
 //? UPDATE
-router.put("/", moviesController.update);
+router.put("/:id", moviesController.update);
 
 //? MODIFY
-router.patch("/", moviesController.modify);
+router.patch("/:id", moviesController.modify);
 
 //? DESTROY
-router.delete("/", moviesController.destroy);
+router.delete("/:id", moviesController.destroy);
 
 module.exports = router;

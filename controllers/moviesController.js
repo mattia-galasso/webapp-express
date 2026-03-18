@@ -5,7 +5,14 @@ const connection = require("../data/db");
 
 //? INDEX
 const index = (req, res) => {
-  const sql = "SELECT * FROM movies";
+  const sql = `
+  SELECT 
+	  movies.*,
+    AVG(reviews.vote) avg_vote
+  FROM movies
+  INNER JOIN reviews
+  ON movies.id = reviews.movie_id
+  GROUP BY movies.id`;
 
   connection.query(sql, (err, results) => {
     if (err) {
