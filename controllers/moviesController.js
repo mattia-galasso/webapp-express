@@ -75,6 +75,31 @@ const show = (req, res) => {
   });
 };
 
+//? STORE REVIEW
+const storeReview = (req, res) => {
+  const requestID = parseInt(req.params.id);
+  const { name, vote, text } = req.body;
+
+  const sql = `
+    INSERT INTO reviews (movie_id, name, vote, text)
+    VALUES (?, ?, ?, ?);
+    `;
+
+  connection.query(sql, [requestID, name, vote, text], (err, result) => {
+    console.log(result.insertId);
+
+    const showReviewSQL = `
+    SELECT * 
+    from reviews
+    WHERE id = ?
+    `;
+
+    connection.query(showReviewSQL, [result.insertId], (err, result) => {
+      res.send(result);
+    });
+  });
+};
+
 //? STORE
 const store = (req, res) => {
   res.send("WIP");
@@ -102,4 +127,4 @@ const responseImagePath = (movie) => {
   return { ...movie, image: imagePath };
 };
 
-module.exports = { index, show, store, update, modify, destroy };
+module.exports = { index, show, storeReview, store, update, modify, destroy };
