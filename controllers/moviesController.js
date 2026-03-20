@@ -43,6 +43,7 @@ const show = (req, res) => {
   const reviewsSQL = `
     SELECT * FROM reviews
     WHERE movie_id = ?
+    ORDER BY created_at ASC
   `;
 
   connection.query(moviesSQL, [requestID], (err, results) => {
@@ -83,6 +84,7 @@ const storeReview = (req, res) => {
   const sql = `
     INSERT INTO reviews (movie_id, name, vote, text)
     VALUES (?, ?, ?, ?);
+
     `;
 
   connection.query(sql, [requestID, name, vote, text], (err, result) => {
